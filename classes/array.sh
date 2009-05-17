@@ -5,8 +5,9 @@ function Array.initialize {
 }
 
 function Array.push {
-  local index=$(($(@g count) + 1))
-  @s count $index
+  local index=$(@g count)
+  local new_index=$(($index + 1))
+  @s count $new_index
   @t set $index "$1"
 }
 
@@ -24,4 +25,40 @@ function Array.get {
 
 function Array.count {
   @g count
+}
+
+function Array.first {
+  @t get 0
+}
+
+function Array.last {
+  @t get $(($(@t count) - 1))
+}
+
+function Array.pop {
+  local val="$(@t last)"
+  local new_count=$(($(@g count) - 1))
+  @s count $new_count
+  echo "$val"
+}
+
+function Array.inspect {
+  local c=$(@g count)
+  /bin/echo -n '['
+  local first=$true
+  for ((i = 0; i != $c; i++)); do
+    if [ $first == $false ]; then
+      /bin/echo -n ', '
+    else
+      first=$false
+    fi
+
+    local obj=$(@t get $i)
+    if [ $(is_object $i) == $true ]; then
+      @x $(@t get $i) inspect
+    else
+      /bin/echo -n $obj
+    fi
+  done
+  /bin/echo -n ']'
 }

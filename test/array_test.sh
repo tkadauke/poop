@@ -18,8 +18,37 @@ function ArrayTest.test_set {
 function ArrayTest.test_push {
   local a=$(new Array)
   @x $a push "hello"
-  @t assert_identical "hello" $(@x $a get 1)
+  @t assert_identical "hello" $(@x $a get 0)
   @t assert_identical 1 $(@x $a count)
+}
+
+function ArrayTest.test_first {
+  local a=$(new Array)
+  @x $a push "hello"
+  @x $a push "world"
+  @t assert_identical "hello" $(@x $a first)
+}
+
+function ArrayTest.test_last {
+  local a=$(new Array)
+  @x $a push "hello"
+  @x $a push "world"
+  @t assert_identical "world" $(@x $a last)
+}
+
+function ArrayTest.test_pop {
+  local a=$(new Array)
+  @x $a push "hello"
+  @x $a push "world"
+  @t assert_identical "world" $(@x $a pop)
+  @t assert_identical 1 $(@x $a count)
+}
+
+function ArrayTest.test_inspect {
+  local a=$(new Array)
+  @x $a push "hello"
+  @x $a push "world"
+  @t assert_identical "[hello, world]" "$(@x $a inspect)"
 }
 
 run_tests ArrayTest
