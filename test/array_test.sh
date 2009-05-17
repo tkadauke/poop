@@ -51,4 +51,11 @@ function ArrayTest.test_inspect {
   @t assert_identical "[hello, world]" "$(@x $a inspect)"
 }
 
+function ArrayTest.test_shortcut {
+  local a=$(@[ hello world ])
+  @t assert_identical 2 $(@x $a count)
+  @t assert_identical "hello" $(@x $a first)
+  @t assert_identical "world" $(@x $a last)
+}
+
 run_tests ArrayTest

@@ -62,3 +62,13 @@ function Array.inspect {
   done
   /bin/echo -n ']'
 }
+
+function @[ {
+  local result=$(new Array)
+  for I in "$@"; do
+    if [ "$I" != "]" ]; then
+      @x $result push "$I"
+    fi
+  done
+  echo $result
+}
