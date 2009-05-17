@@ -9,7 +9,7 @@ function String.value {
 }
 
 function String.equals {
-  if [ "$(@t value)" == "$(@@ $1 value)" ]; then
+  if [ "$(@t value)" == "$(@x $1 value)" ]; then
     echo $true
   else
     echo $false

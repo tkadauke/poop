@@ -23,7 +23,7 @@ function Object.inspect {
     local value=$(echo $I | sed -e "s/^[a-zA-Z0-9_]*=//")
     
     if [ $(is_object $value) == $true ]; then
-      value=$(@@ $value inspect)
+      value=$(@x $value inspect)
     fi
     /bin/echo -n "$name: $value"
     first=$false

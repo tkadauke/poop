@@ -8,7 +8,7 @@ function FalseTest.test_false {
 }
 
 function FalseTest.test_negation {
-  @t assert $(@@ $false not)
+  @t assert $(@x $false not)
 }
 
 run_tests FalseTest

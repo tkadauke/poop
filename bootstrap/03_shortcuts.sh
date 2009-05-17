@@ -21,6 +21,11 @@ function @t {
   @o $this | @c "$@"
 }
 
+function @x {
+  local ref=$1; shift
+  @o $ref | @c "$@"
+}
+
 function @@ {
   local obj=$1; shift
   while [ $# != 0 ]; do

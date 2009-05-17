@@ -5,19 +5,19 @@ class ObjectTest ${Test_Unit_TestCase}
 
 function ObjectTest.test_class {
   local o=$(new Object)
-  @t assert_equal $Object $(@@ $o class)
+  @t assert_equal $Object $(@x $o class)
 }
 
 function ObjectTest.test_clone {
   local o=$(new Object)
   __set_instance_variable $o testvar 10
-  local p=$(@@ $o clone)
+  local p=$(@x $o clone)
   @t assert_identical 10 $(__get_instance_variable $p testvar)
 }
 
 function ObjectTest.test_inspect {
   local o=$(new Object)
-  local inspect=$(@@ $o inspect)
+  local inspect=$(@x $o inspect)
   @t assert_identical Object ${inspect:0:6}
 }
 
@@ -25,16 +25,16 @@ function ObjectTest.test_equals {
   local o=$(new Object)
   local p=$(new Object)
   
-  @t assert $(@@ $o "equals $o")
-  @t deny $(@@ $o "equals $p")
+  @t assert $(@x $o equals $o)
+  @t deny $(@x $o equals $p)
 }
 
 function ObjectTest.test_equals_with_clone {
   local o=$(new Object)
-  local p=$(@@ $o clone)
+  local p=$(@x $o clone)
   
-  @t assert $(@@ $o "equals $o")
-  @t deny $(@@ $o "equals $p")
+  @t assert $(@x $o equals $o)
+  @t deny $(@x $o equals $p)
 }
 
 run_tests ObjectTest

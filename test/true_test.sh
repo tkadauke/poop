@@ -8,7 +8,7 @@ function TrueTest.test_truth {
 }
 
 function TrueTest.test_negation {
-  @t assert_equal $false $(@@ $true not)
+  @t assert_equal $false $(@x $true not)
 }
 
 function TrueTest.test_double_negation {

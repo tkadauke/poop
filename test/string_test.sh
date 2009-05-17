@@ -5,17 +5,17 @@ class StringTest ${Test_Unit_TestCase}
 
 function StringTest.test_single_word {
   local s=$(new String hello)
-  @t assert_identical hello $(@@ $s value)
+  @t assert_identical hello $(@x $s value)
 }
 
 function StringTest.test_multiple_words {
   local s=$(new String hello world)
-  @t assert_identical "hello world" "$(@@ $s value)"
+  @t assert_identical "hello world" "$(@x $s value)"
 }
 
 function StringTest.test_multiple_spaces {
   local s=$(new String "  hello   world ")
-  @t assert_identical "  hello   world " "$(@@ $s value)"
+  @t assert_identical "  hello   world " "$(@x $s value)"
 }
 
 function StringTest.test_equals {
@@ -25,7 +25,7 @@ function StringTest.test_equals {
   
   @t assert_equal $s $s
   @t assert_equal $s $t
-  @t deny $(@@ $s "equals $u")
+  @t deny $(@x $s equals $u)
 }
 
 run_tests StringTest

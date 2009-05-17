@@ -27,7 +27,7 @@ function Test_Unit_TestCase.assert {
   if [ "$assertion" == "$true" ]; then
     @t pass
   else
-    local message=$(oror $2 "assertion failed: $(@@ $1 inspect) is not true")
+    local message=$(oror $2 "assertion failed: $(@x $1 inspect) is not true")
     @t fail "$message"
   fi
 }
@@ -37,7 +37,7 @@ function Test_Unit_TestCase.deny {
   if [ "$assertion" == "$false" ]; then
     @t pass
   else
-    local message=$(oror $2 "assertion failed: $(@@ $1 inspect) is not false")
+    local message=$(oror $2 "assertion failed: $(@x $1 inspect) is not false")
     @t fail "$message"
   fi
 }
@@ -46,7 +46,7 @@ function Test_Unit_TestCase.assert_equal {
   if [ "$(@o $1 | @c equals $2)" == "$true" ]; then
     @t pass
   else
-    local message=$(oror $3 "assertion failed: $(@@ $1 inspect) expected, but got $(@@ $2 inspect)")
+    local message=$(oror $3 "assertion failed: $(@x $1 inspect) expected, but got $(@x $2 inspect)")
     @t fail "$message"
   fi
 }
@@ -103,8 +103,8 @@ function run_tests {
   for I in $tests; do
     local test=$(new $test_suite)
     @o $test | @c run $I $q
-    assertions=$(($(@@ $test assertions) + assertions))
-    failures=$(($(@@ $test failures) + failures))
+    assertions=$(($(@x $test assertions) + assertions))
+    failures=$(($(@x $test failures) + failures))
   done
   
   puts
