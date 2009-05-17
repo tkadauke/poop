@@ -98,6 +98,7 @@ function run_tests {
   local filename=$0
   local tests=$(cat $filename | grep "function $1.test_" | sed -e "s/function $1.//" | sed -e "s/{//")
   
+  local test_count=0
   local assertions=0
   local failures=0
   for I in $tests; do
@@ -105,8 +106,9 @@ function run_tests {
     @o $test | @c run $I $q
     assertions=$(($(@x $test assertions) + assertions))
     failures=$(($(@x $test failures) + failures))
+    test_count=$((test_count + 1))
   done
   
   puts
-  puts "$assertions assertions, $failures failures"
+  puts "$test_count tests, $assertions assertions, $failures failures"
 }
