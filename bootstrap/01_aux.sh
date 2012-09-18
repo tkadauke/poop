@@ -28,4 +28,13 @@ function print {
 
 function error {
   puts "error:" "$@"
+  backtrace
+}
+
+function backtrace {
+  puts "backtrace:"
+  i=0
+  while caller $i; do
+    i=$((i+1))
+  done >&2
 }
