@@ -1,7 +1,7 @@
 function __alloc {
   local class=$1
   local ref=$(head /dev/urandom | md5)
-  touch $objects/$ref
+  mkdir $objects/$ref
   __set_instance_variable $ref class ${!class}
   echo $ref
 }
@@ -9,7 +9,7 @@ function __alloc {
 function __clone {
   local ref=$1
   local clone=$(head /dev/urandom | md5)
-  cp $objects/$ref $objects/$clone
+  cp -r $objects/$ref $objects/$clone
   echo $clone
 }
 
@@ -31,17 +31,13 @@ function __set_instance_variable {
   local ref=$1
   local name=$2
   local value=$3
-  local rest=$(cat $objects/$ref | grep -v "^${name}=")
-  echo "$rest" > $objects/$ref
-  echo "${name}=${value}" >> $objects/$ref
+  echo "$value" > $objects/$ref/$name
 }
 
 function __get_instance_variable {
   local ref=$1
   local name=$2
-  local line=$(cat $objects/$ref | grep "^${name}=")
-  local value=$(echo "$line" | sed -e "s/${name}=//")
-  echo "$value"
+  cat $objects/$ref/$name
 }
 
 function __class_of {

@@ -16,7 +16,11 @@ function class {
 function new {
   local class=$1; shift
   local ref=$(__alloc $class)
-  __call $ref initialize "$@"
+  if [ $(is_object $ref) == $true ]; then
+    __call $ref initialize "$@"
+  else
+    error "Could not allocate object of type '$class', ref '$ref'. Maybe it's not a class or not required?"
+  fi
   echo $ref
 }
 

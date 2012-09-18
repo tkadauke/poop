@@ -3,3 +3,4 @@ require class
 require true
 require false
 require string
+require array
