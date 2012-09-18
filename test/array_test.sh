@@ -22,6 +22,12 @@ function ArrayTest.test_push {
   @t assert_identical 1 $(@x $a count)
 }
 
+function ArrayTest.test_push_multiple_items {
+  local a=$(new Array)
+  @x $a push "hello" "world" "whats" "up"
+  @t assert_identical 4 $(@x $a count)
+}
+
 function ArrayTest.test_first {
   local a=$(new Array)
   @x $a push "hello"

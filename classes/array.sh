@@ -6,9 +6,11 @@ function Array.initialize {
 
 function Array.push {
   local index=$(@g count)
-  local new_index=$(($index + 1))
-  @s count $new_index
-  @t set $index "$1"
+  for I in "$@"; do
+    @t set $index "$1"
+    index=$(($index + 1))
+  done
+  @s count $index
 }
 
 function Array.set {
