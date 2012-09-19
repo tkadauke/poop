@@ -2,7 +2,7 @@ function __alloc {
   local class=$1
   local ref=$(head /dev/urandom | md5)
   mkdir $objects/$ref
-  __set_instance_variable $ref class ${!class}
+  __set_instance_variable $ref __class ${!class}
   echo $ref
 }
 
@@ -41,7 +41,7 @@ function __get_instance_variable {
 }
 
 function __class_of {
-  __get_instance_variable $1 class
+  __get_instance_variable $1 __class
 }
 
 function __call {
@@ -60,7 +60,7 @@ function __super_call {
   local cls=$1; shift
   local fun=$1; shift
   
-  local class_name=$(__get_instance_variable "$cls" name)
+  local class_name=$(__get_instance_variable "$cls" __name)
   local full_name="${class_name}.${fun}"
   
   if function_exists "$full_name"; then
@@ -69,7 +69,7 @@ function __super_call {
     $full_name "$@"
     this=$before_this
   else
-    super=$(__get_instance_variable "$cls" superclass)
+    super=$(__get_instance_variable "$cls" __superclass)
     if [ "$super" == "" ]; then
       error "method $fun does not exist in class $class_name"
     else

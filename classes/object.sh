@@ -3,7 +3,7 @@ function Object.initialize {
 }
 
 function Object.class {
-  @g class
+  __class_of $this
 }
 
 function Object.clone {
@@ -13,7 +13,7 @@ function Object.clone {
 function Object.instance_variables {
   local result=$(new Array)
   for I in $(ls $objects/$this); do
-    if [ $I != class ] && [ $I != superclass ]; then
+    if [[ "$I" != __* ]]; then
       @c $result push $I
     fi
   done

@@ -1,12 +1,12 @@
 function Class.initialize {
-  @s name $1
-  @s superclass $2
+  @s __name $1
+  @s __superclass $2
 }
 
 function Class.name {
-  @g name
+  @g __name
 }
 
 function Class.superclass {
-  @g superclass
+  @g __superclass
 }
