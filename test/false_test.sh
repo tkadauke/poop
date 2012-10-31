@@ -1,4 +1,4 @@
-source $FOOP_PATH/foop.sh
+source $POOP_PATH/poop.sh
 require test/unit/test_case
 
 class FalseTest ${Test_Unit_TestCase}

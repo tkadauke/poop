@@ -25,5 +25,5 @@ function new {
 }
 
 function require {
-  source $FOOP_PATH/classes/$1.sh
+  source $POOP_PATH/classes/$1.sh
 }
