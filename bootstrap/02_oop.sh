@@ -1,6 +1,12 @@
+if [ "`which md5`" == "" ]; then
+  md5_command="md5sum"
+else
+  md5_command="md5"
+fi
+
 function __alloc {
   local class=$1
-  local ref=$(head /dev/urandom | md5)
+  local ref=$(head /dev/urandom | $md5_command)
   mkdir $objects/$ref
   __set_instance_variable $ref __class ${!class}
   echo $ref
@@ -8,7 +14,7 @@ function __alloc {
 
 function __clone {
   local ref=$1
-  local clone=$(head /dev/urandom | md5)
+  local clone=$(head /dev/urandom | $md5_command)
   cp -r $objects/$ref $objects/$clone
   echo $clone
 }
